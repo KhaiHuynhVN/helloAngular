@@ -1,0 +1,20 @@
+{
+   "common": {
+      "hello": "Xin chào",
+      "welcome": "Chào mừng",
+      "yes": "Có",
+      "no": "Không",
+      "ok": "Đồng ý",
+      "cancel": "Hủy",
+      "save": "Lưu",
+      "delete": "Xóa",
+      "edit": "Chỉnh sửa",
+      "search": "Tìm kiếm",
+      "loading": "Đang tải..."
+   },
+   "header": {
+      "home": "Trang chủ",
+      "about": "Giới thiệu",
+      "contact": "Liên hệ"
+   }
+}

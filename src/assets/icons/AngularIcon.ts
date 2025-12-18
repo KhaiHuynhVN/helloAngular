@@ -51,6 +51,8 @@ import { Component, Input } from "@angular/core";
    `,
 })
 class AngularIcon {
+   private static counter = 0;
+
    @Input() className: string = "";
    @Input() width: string = "30";
    @Input() height: string = "30";
@@ -58,7 +60,7 @@ class AngularIcon {
    @Input() stroke: string = "";
    @Input() strokeWidth: string = "";
 
-   uniqueId = "123";
+   uniqueId = `angular-icon-${++AngularIcon.counter}`;
 }
 
 export default AngularIcon;

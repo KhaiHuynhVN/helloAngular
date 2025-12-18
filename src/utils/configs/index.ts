@@ -1,0 +1,1 @@
+export { provideTranslation } from "./translationConfig";

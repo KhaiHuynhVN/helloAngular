@@ -1,6 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+/* Import themes FIRST to define CSS variables */
+@import "./themes/index.scss";
 
+/* Then import Tailwind */
 @import "tailwindcss";
+
+/* Tailwind v4: Register theme colors */
+@theme inline {
+   --color-primary: var(--color-primary);
+   --color-secondary: var(--color-secondary);
+   --color-tertiary: var(--color-tertiary);
+   --color-quaternary: var(--color-quaternary);
+   --color-quinary: var(--color-quinary);
+   --color-senary: var(--color-senary);
+   --color-septenary: var(--color-septenary);
+   --color-octonary: var(--color-octonary);
+   --color-nonary: var(--color-nonary);
+   --color-denary: var(--color-denary);
+   --color-eleven: var(--color-eleven);
+   --color-twelve: var(--color-twelve);
+   --color-thirteen: var(--color-thirteen);
+   --color-fourteen: var(--color-fourteen);
+   --color-fifteen: var(--color-fifteen);
+}
 
 * {
    margin: 0;
@@ -13,5 +34,6 @@ html {
 }
 
 body {
-   background-color: #ebebeb;
+   background-color: var(--color-eleven);
+   color: var(--color-thirteen);
 }

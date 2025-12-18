@@ -1,1 +1,1 @@
-export { default as AngularIcon } from './AngularIcon';
+export { default as AngularIcon } from "./AngularIcon";
