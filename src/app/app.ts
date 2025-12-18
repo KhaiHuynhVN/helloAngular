@@ -1,12 +1,16 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, signal } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
+
+import { AngularHeader } from "../components";
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.css'
+   selector: "App",
+   imports: [RouterOutlet, AngularHeader],
+   templateUrl: "./app.html",
+   styleUrl: "./app.css",
 })
-export class App {
-  protected readonly title = signal('hello-angular');
+class App {
+   protected readonly title = signal("DemonVN");
 }
+
+export default App;
