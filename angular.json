@@ -58,6 +58,9 @@
             },
             "serve": {
                "builder": "@angular/build:dev-server",
+               "options": {
+                  "hmr": true
+               },
                "configurations": {
                   "production": {
                      "buildTarget": "hello-angular:build:production"
