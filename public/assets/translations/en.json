@@ -16,5 +16,9 @@
       "home": "Home",
       "about": "About",
       "contact": "Contact"
+   },
+   "translation": {
+      "vietnam": "Vietnamese",
+      "english": "English"
    }
 }

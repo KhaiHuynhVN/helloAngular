@@ -1,0 +1,22 @@
+<div class="wrapper">
+   <AngularIcon width="180"></AngularIcon>
+
+   <nav class="nav-group">
+      <button
+         (click)="navigate(routes.HOME.fullPath)"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{ exact: true }"
+         [routerLink]="routes.HOME.fullPath"
+      >
+         {{ "header.home" | translate }}
+      </button>
+      <button (click)="navigate(routes.ABOUT.fullPath)" routerLinkActive="active" [routerLink]="routes.ABOUT.fullPath">
+         {{ "header.about" | translate }}
+      </button>
+
+      <select (change)="changeLang($event)">
+         <option value="vi">{{ "translation.vietnam" | translate }}</option>
+         <option value="en">{{ "translation.english" | translate }}</option>
+      </select>
+   </nav>
+</div>

@@ -16,5 +16,9 @@
       "home": "Trang chủ",
       "about": "Giới thiệu",
       "contact": "Liên hệ"
+   },
+   "translation": {
+      "vietnam": "Tiếng Việt",
+      "english": "Tiếng Anh"
    }
 }

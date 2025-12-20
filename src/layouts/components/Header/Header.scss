@@ -23,8 +23,8 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.2s ease;
-      font-family: "Inter", "SF Pro Display", -apple-system, sans-serif;
+      transition: 1s ease;
+      font-family: inherit;
 
       &:hover {
          background: rgba(255, 255, 255, 0.12);
@@ -35,6 +35,12 @@
 
       &:active {
          transform: translateY(0);
+      }
+
+      &.active {
+         background: rgba(232, 121, 249, 0.15);
+         border-color: rgba(232, 121, 249, 0.4);
+         color: #e879f9;
       }
    }
 
