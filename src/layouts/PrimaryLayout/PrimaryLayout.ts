@@ -10,4 +10,6 @@ import { Header, Footer } from "../components";
    templateUrl: "./PrimaryLayout.html",
    styleUrls: ["./PrimaryLayout.scss"],
 })
-export default class PrimaryLayout {}
+class PrimaryLayout {}
+
+export default PrimaryLayout;

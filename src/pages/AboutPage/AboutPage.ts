@@ -7,4 +7,5 @@ import { Component } from "@angular/core";
    styleUrls: ["./AboutPage.scss"],
 })
 class AboutPage {}
+
 export default AboutPage;

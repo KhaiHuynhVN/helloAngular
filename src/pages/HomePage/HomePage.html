@@ -1,4 +1,40 @@
 <div class="wrapper">
    <h1>Welcome to Angular</h1>
    <p>This is the home page</p>
+
+   <!-- Two-way binding: [(ngModel)] = [ngModel] + (ngModelChange) -->
+   <div style="margin-bottom: 20px">
+      <input [(ngModel)]="name" placeholder="Nhập tên..." style="padding: 8px; border-radius: 4px; border: 1px solid #ccc" />
+      <p>Xin chào: {{ name }}</p>
+   </div>
+
+   <button
+      [disabled]="isDisabled()"
+      class="text-white px-5 py-2.5 rounded transition-all duration-200"
+      [ngClass]="isDisabled() ? 'bg-red-500 cursor-not-allowed' : 'bg-blue-500 cursor-pointer hover:bg-blue-600'"
+      (click)="resetDisabled()"
+   >
+      {{ isDisabled() ? "Disabled" : "Click me!" }}
+   </button>
+
+   <p>{{ ("Hello" | testPipe_1 : " " + isDisabled().valueOf().toString() : 10).value | upperCasePipe }}</p>
+
+   <div class="flex flex-col text-start">
+      <ul>
+         @for (item of list(); track item.id) {
+         <li>
+            <p>{{ item.name }}</p>
+            <p>{{ item.description }}</p>
+            <p>{{ item.price }}</p>
+            <p>{{ item.quantity }}</p>
+            <p>{{ item.image }}</p>
+            <p>{{ item.category }}</p>
+            <p>{{ item.brand }}</p>
+            <p>{{ item.isActive }}</p>
+         </li>
+         } @empty {
+         <li>No items</li>
+         }
+      </ul>
+   </div>
 </div>

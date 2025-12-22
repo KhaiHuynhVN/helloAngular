@@ -11,4 +11,5 @@ import { Header } from "../components";
    imports: [Header, RouterOutlet],
 })
 class SecondaryLayout {}
+
 export default SecondaryLayout;

@@ -23,16 +23,28 @@
    --color-fifteen: var(--color-fifteen);
 }
 
-* {
-   margin: 0;
-   padding: 0;
-   box-sizing: border-box;
-}
+/* Reset styles in base layer - lower priority than utilities */
+@layer base {
+   *,
+   *::before,
+   *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+   }
 
-html {
-   font-size: 62.5%;
-}
+   html {
+      font-size: 62.5%;
+   }
 
-body {
-   background-color: var(--color-eleven);
+   body {
+      background-color: var(--color-eleven);
+   }
+
+   /* Reset button browser defaults */
+   button {
+      border: none;
+      background: none;
+      font: inherit;
+   }
 }
