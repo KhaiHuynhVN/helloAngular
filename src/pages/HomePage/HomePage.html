@@ -19,13 +19,58 @@
 
    <p>{{ ("Hello" | testPipe_1 : " " + isDisabled().valueOf().toString() : 10).value | upperCasePipe }}</p>
 
+   <!-- Add Product Form -->
+   <div class="mt-8 p-6 bg-white rounded-2xl shadow-md border border-slate-100">
+      <h2 class="text-xl font-bold text-slate-800 mb-4">Add New Product</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+         <input
+            [(ngModel)]="newProduct.name"
+            placeholder="Product name"
+            class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+         />
+         <input
+            [(ngModel)]="newProduct.category"
+            placeholder="Category"
+            class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+         />
+         <input
+            [(ngModel)]="newProduct.brand"
+            placeholder="Brand"
+            class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+         />
+         <input
+            [(ngModel)]="newProduct.price"
+            type="number"
+            placeholder="Price"
+            class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+         />
+         <input
+            [(ngModel)]="newProduct.quantity"
+            type="number"
+            placeholder="Quantity"
+            class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+         />
+         <input
+            [(ngModel)]="newProduct.description"
+            placeholder="Description"
+            class="px-4 py-2 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+         />
+      </div>
+      <button
+         (click)="handleAddProduct()"
+         class="mt-4 px-6 py-2 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+      >
+         Add Product
+      </button>
+   </div>
+
    <!-- Product Grid -->
    <div class="mt-8">
-      <h2 class="text-2xl font-bold text-slate-800 mb-6">Products</h2>
+      <h2 class="text-2xl font-bold text-slate-800 mb-6">Products ({{ products().length }})</h2>
       <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-         @for (item of list(); track item.id) {
+         @for (item of products(); track item.id) {
          <li
-            class="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-slate-100"
+            class="group/product-item-container bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-slate-100"
          >
             <!-- Image -->
             <div class="relative overflow-hidden">
@@ -33,9 +78,23 @@
                   <img
                      [src]="item.image"
                      [alt]="item.name"
-                     class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                     class="w-full h-48 object-cover group-hover/product-item-container:scale-105 transition-transform duration-300"
                   />
                </a>
+               <!-- Delete Button -->
+               <button
+                  (click)="handleDeleteProduct(item.id)"
+                  class="absolute top-3 left-3 p-2 bg-red-500 text-white rounded-full hover:bg-red-600 opacity-0 group-hover/product-item-container:opacity-100 transition-all duration-200"
+               >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                     />
+                  </svg>
+               </button>
                <!-- Status Badge -->
                <span
                   class="absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full"
@@ -54,7 +113,9 @@
                </div>
 
                <!-- Name -->
-               <h3 class="text-lg font-bold text-slate-800 mb-1 group-hover:text-indigo-600 transition-colors">
+               <h3
+                  class="text-lg font-bold text-slate-800 mb-1 group-hover/product-item-container:text-indigo-600 transition-colors"
+               >
                   {{ item.name }}
                </h3>
 

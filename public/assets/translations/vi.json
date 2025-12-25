@@ -16,7 +16,7 @@
       "home": "Trang chủ",
       "about": "Giới thiệu",
       "contact": "Liên hệ",
-      "product_detail": "Chi tiết sản phẩm {{ test }}"
+      "product_detail": "Chi tiết sản phẩm {{ productId }}"
    },
    "translation": {
       "vietnam": "Tiếng Việt",

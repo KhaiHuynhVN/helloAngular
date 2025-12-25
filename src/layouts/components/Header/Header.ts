@@ -2,9 +2,11 @@ import { Component, inject } from "@angular/core";
 import { Router, RouterLink, RouterLinkActive } from "@angular/router";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { NgClass } from "@angular/common";
+import { Store } from "@ngrx/store";
 
 import { Icons } from "../../../assets";
 import ROUTE_CONFIGS from "../../../routeConfigs";
+import { productSelectors } from "../../../store";
 
 @Component({
    selector: "Header",
@@ -14,10 +16,13 @@ import ROUTE_CONFIGS from "../../../routeConfigs";
    imports: [Icons.AngularIcon, TranslateModule, RouterLink, RouterLinkActive, NgClass],
 })
 class Header {
-   protected ROUTE_CONFIGS = ROUTE_CONFIGS;
-
    private translate = inject(TranslateService);
+   private store = inject(Store);
+
+   protected ROUTE_CONFIGS = ROUTE_CONFIGS;
    protected router = inject(Router);
+
+   productSelected = this.store.selectSignal(productSelectors.selectSelectedProduct);
 
    navigate(path: string) {
       this.router.navigate([path], { replaceUrl: true });
