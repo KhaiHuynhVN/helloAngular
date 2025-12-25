@@ -15,7 +15,8 @@
    "header": {
       "home": "Home",
       "about": "About",
-      "contact": "Contact"
+      "contact": "Contact",
+      "product_detail": "Product Detail {{ test }}"
    },
    "translation": {
       "vietnam": "Vietnamese",

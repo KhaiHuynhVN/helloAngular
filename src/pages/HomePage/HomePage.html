@@ -11,7 +11,7 @@
    <button
       [disabled]="isDisabled()"
       class="text-white px-5 py-2.5 rounded transition-all duration-200"
-      [ngClass]="isDisabled() ? 'bg-red-500 cursor-not-allowed' : 'bg-blue-500 cursor-pointer hover:bg-blue-600'"
+      [ngClass]="{ 'bg-red-500 cursor-not-allowed': isDisabled(), 'bg-blue-500 cursor-pointer hover:bg-blue-600': !isDisabled() }"
       (click)="resetDisabled()"
    >
       {{ isDisabled() ? "Disabled" : "Click me!" }}
@@ -19,21 +19,77 @@
 
    <p>{{ ("Hello" | testPipe_1 : " " + isDisabled().valueOf().toString() : 10).value | upperCasePipe }}</p>
 
-   <div class="flex flex-col text-start">
-      <ul>
+   <!-- Product Grid -->
+   <div class="mt-8">
+      <h2 class="text-2xl font-bold text-slate-800 mb-6">Products</h2>
+      <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
          @for (item of list(); track item.id) {
-         <li>
-            <p>{{ item.name }}</p>
-            <p>{{ item.description }}</p>
-            <p>{{ item.price }}</p>
-            <p>{{ item.quantity }}</p>
-            <p>{{ item.image }}</p>
-            <p>{{ item.category }}</p>
-            <p>{{ item.brand }}</p>
-            <p>{{ item.isActive }}</p>
+         <li
+            class="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-slate-100"
+         >
+            <!-- Image -->
+            <div class="relative overflow-hidden">
+               <a [routerLink]="[ROUTE_CONFIGS.PRODUCT_DETAIL.fullPath, item.id]" replaceUrl="true" class="block cursor-pointer">
+                  <img
+                     [src]="item.image"
+                     [alt]="item.name"
+                     class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+               </a>
+               <!-- Status Badge -->
+               <span
+                  class="absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full"
+                  [ngClass]="item.isActive ? 'bg-emerald-500 text-white' : 'bg-slate-400 text-white'"
+               >
+                  {{ item.isActive ? "Active" : "Inactive" }}
+               </span>
+            </div>
+
+            <!-- Content -->
+            <div class="p-5">
+               <!-- Category & Brand -->
+               <div class="flex items-center gap-2 mb-2">
+                  <span class="px-2 py-0.5 bg-indigo-100 text-indigo-700 text-xs font-medium rounded">{{ item.category }}</span>
+                  <span class="px-2 py-0.5 bg-amber-100 text-amber-700 text-xs font-medium rounded">{{ item.brand }}</span>
+               </div>
+
+               <!-- Name -->
+               <h3 class="text-lg font-bold text-slate-800 mb-1 group-hover:text-indigo-600 transition-colors">
+                  {{ item.name }}
+               </h3>
+
+               <!-- Description -->
+               <p class="text-sm text-slate-500 mb-3 line-clamp-2">{{ item.description }}</p>
+
+               <!-- Price & Quantity -->
+               <div class="flex items-center justify-between pt-3 border-t border-slate-100">
+                  <span class="text-xl font-bold text-emerald-600">${{ item.price }}</span>
+                  <span class="flex items-center gap-1 text-sm text-slate-500">
+                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                           stroke-linecap="round"
+                           stroke-linejoin="round"
+                           stroke-width="2"
+                           d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                        />
+                     </svg>
+                     {{ item.quantity }} in stock
+                  </span>
+               </div>
+            </div>
          </li>
          } @empty {
-         <li>No items</li>
+         <li class="col-span-full text-center py-12 text-slate-400">
+            <svg class="w-16 h-16 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+               <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+               />
+            </svg>
+            <p class="text-lg font-medium">No items found</p>
+         </li>
          }
       </ul>
    </div>

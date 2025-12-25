@@ -3,15 +3,22 @@
 
    <nav class="nav-group">
       <button
-         (click)="navigate(routes.HOME.fullPath)"
+         (click)="navigate(ROUTE_CONFIGS.HOME.fullPath)"
          routerLinkActive="active"
          [routerLinkActiveOptions]="{ exact: true }"
-         [routerLink]="routes.HOME.fullPath"
+         [routerLink]="ROUTE_CONFIGS.HOME.fullPath"
       >
          {{ "header.home" | translate }}
       </button>
-      <button (click)="navigate(routes.ABOUT.fullPath)" routerLinkActive="active" [routerLink]="routes.ABOUT.fullPath">
+      <button
+         (click)="navigate(ROUTE_CONFIGS.ABOUT.fullPath)"
+         routerLinkActive="active"
+         [routerLink]="ROUTE_CONFIGS.ABOUT.fullPath"
+      >
          {{ "header.about" | translate }}
+      </button>
+      <button [ngClass]="{ active: isRouteActive(ROUTE_CONFIGS.PRODUCT_DETAIL.fullPath) }" class="cursor-default!">
+         {{ "header.product_detail" | translate : { test: "Test DemonVN" } }}
       </button>
 
       <select (change)="changeLang($event)">

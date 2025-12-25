@@ -11,6 +11,10 @@ const routes: Routes = [
             path: ROUTE_CONFIGS.HOME.path,
             loadComponent: () => import("../pages/HomePage"),
          },
+         {
+            path: ROUTE_CONFIGS.PRODUCT_DETAIL.path,
+            loadComponent: () => import("../pages/ProductDetailPage"),
+         },
       ],
    },
    {

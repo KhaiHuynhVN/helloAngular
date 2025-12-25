@@ -15,7 +15,8 @@
    "header": {
       "home": "Trang chủ",
       "about": "Giới thiệu",
-      "contact": "Liên hệ"
+      "contact": "Liên hệ",
+      "product_detail": "Chi tiết sản phẩm {{ test }}"
    },
    "translation": {
       "vietnam": "Tiếng Việt",

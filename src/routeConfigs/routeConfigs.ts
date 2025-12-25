@@ -15,6 +15,11 @@ const ROUTE_CONFIGS = {
       fullPath: "/about",
       title: "About",
    },
+   PRODUCT_DETAIL: {
+      path: "product-detail/:productId",
+      fullPath: "/product-detail",
+      title: "Product Detail",
+   },
    NOT_FOUND: {
       path: "**",
       fullPath: "/**",

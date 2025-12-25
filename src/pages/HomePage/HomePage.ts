@@ -1,8 +1,10 @@
 import { Component, signal, effect, OnDestroy } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { NgClass } from "@angular/common";
+import { RouterLink } from "@angular/router";
 
 import { testPipe_1, upperCasePipe } from "../../utils";
+import ROUTE_CONFIGS from "../../routeConfigs";
 
 interface Item {
    id: number;
@@ -19,81 +21,84 @@ interface Item {
 @Component({
    selector: "HomePage",
    standalone: true,
-   imports: [FormsModule, NgClass, testPipe_1, upperCasePipe],
+   imports: [FormsModule, NgClass, testPipe_1, upperCasePipe, RouterLink],
    templateUrl: "./HomePage.html",
    styleUrls: ["./HomePage.scss"],
 })
 class HomePage implements OnDestroy {
+   protected readonly ROUTE_CONFIGS = ROUTE_CONFIGS;
+
    public isDisabled = signal<boolean>(false);
    public timer: NodeJS.Timeout | null = null;
+
    // Two-way binding example
    public name = "";
    // List render
    public list = signal<Item[]>([
       {
          id: 1,
-         name: "Item 1",
-         description: "Description 1",
-         price: 100,
-         quantity: 1,
-         image: "https://via.placeholder.com/150",
-         category: "Category 1",
-         brand: "Brand 1",
+         name: "Wireless Headphones",
+         description: "Premium noise-canceling wireless headphones with 30hr battery life",
+         price: 199,
+         quantity: 15,
+         image: "https://picsum.photos/seed/headphones/400/300",
+         category: "Electronics",
+         brand: "Sony",
          isActive: true,
       },
       {
          id: 2,
-         name: "Item 2",
-         description: "Description 2",
-         price: 200,
-         quantity: 2,
-         image: "https://via.placeholder.com/150",
-         category: "Category 2",
-         brand: "Brand 2",
-         isActive: false,
-      },
-      {
-         id: 3,
-         name: "Item 3",
-         description: "Description 3",
-         price: 300,
-         quantity: 3,
-         image: "https://via.placeholder.com/150",
-         category: "Category 3",
-         brand: "Brand 3",
+         name: "Running Shoes",
+         description: "Lightweight breathable running shoes for ultimate comfort",
+         price: 129,
+         quantity: 8,
+         image: "https://picsum.photos/seed/shoes/400/300",
+         category: "Sports",
+         brand: "Nike",
          isActive: true,
       },
       {
-         id: 4,
-         name: "Item 4",
-         description: "Description 4",
-         price: 400,
-         quantity: 4,
-         image: "https://via.placeholder.com/150",
-         category: "Category 4",
-         brand: "Brand 4",
+         id: 3,
+         name: "Smart Watch",
+         description: "Fitness tracker with heart rate monitor and GPS",
+         price: 299,
+         quantity: 0,
+         image: "https://picsum.photos/seed/watch/400/300",
+         category: "Electronics",
+         brand: "Apple",
          isActive: false,
       },
       {
+         id: 4,
+         name: "Backpack",
+         description: "Water-resistant laptop backpack with USB charging port",
+         price: 79,
+         quantity: 23,
+         image: "https://picsum.photos/seed/backpack/400/300",
+         category: "Accessories",
+         brand: "Herschel",
+         isActive: true,
+      },
+      {
          id: 5,
-         name: "Item 5",
-         description: "Description 5",
-         price: 500,
-         quantity: 5,
-         image: "https://via.placeholder.com/150",
-         category: "Category 5",
-         brand: "Brand 5",
+         name: "Coffee Maker",
+         description: "Automatic drip coffee maker with programmable timer",
+         price: 89,
+         quantity: 12,
+         image: "https://picsum.photos/seed/coffee/400/300",
+         category: "Home",
+         brand: "Breville",
          isActive: true,
       },
       {
          id: 6,
-         name: "Item 6",
-         description: "Description 6",
-         price: 600,
-         quantity: 6,
-         image: "https://via.placeholder.com/150",
-         category: "Category 6",
-         brand: "Brand 6",
+         name: "Sunglasses",
+         description: "Polarized UV protection sunglasses with titanium frame",
+         price: 159,
+         quantity: 5,
+         image: "https://picsum.photos/seed/sunglasses/400/300",
+         category: "Fashion",
+         brand: "Ray-Ban",
          isActive: false,
       },
    ]);
