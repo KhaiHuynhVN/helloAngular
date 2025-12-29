@@ -24,10 +24,6 @@ class Header {
 
    productSelected = this.store.selectSignal(productSelectors.selectSelectedProduct);
 
-   navigate(path: string) {
-      this.router.navigate([path], { replaceUrl: true });
-   }
-
    changeLang(event: Event) {
       const select = event.target as HTMLSelectElement;
       this.translate.use(select.value);

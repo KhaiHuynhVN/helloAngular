@@ -1,4 +1,136 @@
-<div class="wrapper">
-   <h1>Product Detail</h1>
-   <p>Product ID: {{ productId }}</p>
+<div class="min-h-screen bg-linear-to-br from-slate-50 via-white to-slate-100 py-8 px-4">
+   <div class="max-w-5xl mx-auto">
+      <!-- Back Button -->
+      <a
+         [routerLink]="ROUTE_CONFIGS.HOME.fullPath"
+         replaceUrl="true"
+         class="inline-flex items-center gap-2 text-slate-600 hover:text-indigo-600 transition-colors mb-6 group"
+      >
+         <svg
+            class="w-5 h-5 group-hover:-translate-x-1 transition-transform"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+         >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+         </svg>
+         <span class="font-medium">Back to Products</span>
+      </a>
+
+      @if (product()) {
+      <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
+         <div class="grid md:grid-cols-2 gap-0">
+            <!-- Image Section -->
+            <div class="relative bg-linear-to-br from-slate-100 to-slate-200 p-8">
+               <img
+                  [src]="product()!.image"
+                  [alt]="product()!.name"
+                  class="w-full h-80 md:h-full object-cover rounded-2xl shadow-lg"
+               />
+               <!-- Status Badge -->
+               <span
+                  class="absolute top-12 right-12 px-4 py-2 text-sm font-bold rounded-full shadow-md"
+                  [ngClass]="product()!.isActive ? 'bg-emerald-500 text-white' : 'bg-slate-400 text-white'"
+               >
+                  {{ product()!.isActive ? "✓ In Stock" : "✗ Out of Stock" }}
+               </span>
+            </div>
+
+            <!-- Content Section -->
+            <div class="p-8 md:p-12 flex flex-col">
+               <!-- Category & Brand Tags -->
+               <div class="flex items-center gap-3 mb-4">
+                  <span class="px-3 py-1.5 bg-indigo-100 text-indigo-700 text-sm font-semibold rounded-lg">
+                     {{ product()!.category }}
+                  </span>
+                  <span class="px-3 py-1.5 bg-amber-100 text-amber-700 text-sm font-semibold rounded-lg">
+                     {{ product()!.brand }}
+                  </span>
+               </div>
+
+               <!-- Product Name -->
+               <h1 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">
+                  {{ product()!.name }}
+               </h1>
+
+               <!-- Description -->
+               <p class="text-slate-600 text-lg leading-relaxed mb-8">
+                  {{ product()!.description }}
+               </p>
+
+               <!-- Price -->
+               <div class="mb-8">
+                  <span class="text-sm text-slate-500 uppercase tracking-wide">Price</span>
+                  <div class="text-4xl font-bold text-emerald-600 mt-1">${{ product()!.price }}</div>
+               </div>
+
+               <!-- Quantity Info -->
+               <div
+                  class="flex items-center gap-4 p-4 rounded-xl mb-8"
+                  [ngClass]="product()!.quantity > 0 ? 'bg-emerald-50' : 'bg-red-50'"
+               >
+                  <svg
+                     class="w-6 h-6"
+                     [ngClass]="product()!.quantity > 0 ? 'text-emerald-600' : 'text-red-600'"
+                     fill="none"
+                     stroke="currentColor"
+                     viewBox="0 0 24 24"
+                  >
+                     <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+                     />
+                  </svg>
+                  <div>
+                     <span class="block text-sm" [ngClass]="product()!.quantity > 0 ? 'text-emerald-700' : 'text-red-700'">
+                        {{ product()!.quantity > 0 ? product()!.quantity + " items available" : "Currently out of stock" }}
+                     </span>
+                  </div>
+               </div>
+
+               <!-- Action Buttons -->
+               <div class="flex gap-4 mt-auto">
+                  <button
+                     class="flex-1 py-4 px-6 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                     [disabled]="!product()!.isActive || product()!.quantity === 0"
+                  >
+                     Add to Cart
+                  </button>
+                  <button
+                     class="py-4 px-6 border-2 border-slate-200 text-slate-600 font-semibold rounded-xl hover:border-indigo-600 hover:text-indigo-600 transition-colors"
+                  >
+                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path
+                           stroke-linecap="round"
+                           stroke-linejoin="round"
+                           stroke-width="2"
+                           d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                        />
+                     </svg>
+                  </button>
+               </div>
+
+               <!-- Product ID -->
+               <p class="text-xs text-slate-400 mt-6">Product ID: #{{ product()!.id }}</p>
+            </div>
+         </div>
+      </div>
+      } @else {
+      <!-- Loading / Not Found State -->
+      <div class="bg-white rounded-3xl shadow-xl p-12 text-center">
+         <svg class="w-16 h-16 mx-auto text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+               stroke-linecap="round"
+               stroke-linejoin="round"
+               stroke-width="2"
+               d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+         </svg>
+         <h2 class="text-xl font-semibold text-slate-600 mb-2">Product not found</h2>
+         <p class="text-slate-400">The product you're looking for doesn't exist or has been removed.</p>
+      </div>
+      }
+   </div>
 </div>

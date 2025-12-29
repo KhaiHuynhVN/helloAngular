@@ -1,21 +1,21 @@
-import { Component, signal, effect, OnDestroy, inject } from "@angular/core";
+import { Component, signal, effect, OnDestroy, OnInit, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { NgClass } from "@angular/common";
-import { RouterLink } from "@angular/router";
 import { Store } from "@ngrx/store";
 
 import { testPipe_1, upperCasePipe } from "../../utils";
 import ROUTE_CONFIGS from "../../routeConfigs";
 import { productSelectors, productActions, type Product } from "../../store";
+import { ProductContainer } from "./components";
 
 @Component({
    selector: "HomePage",
    standalone: true,
-   imports: [FormsModule, NgClass, testPipe_1, upperCasePipe, RouterLink],
+   imports: [FormsModule, NgClass, testPipe_1, upperCasePipe, ProductContainer],
    templateUrl: "./HomePage.html",
    styleUrls: ["./HomePage.scss"],
 })
-class HomePage implements OnDestroy {
+class HomePage implements OnInit, OnDestroy {
    protected readonly ROUTE_CONFIGS = ROUTE_CONFIGS;
    private store = inject(Store);
 
@@ -46,6 +46,16 @@ class HomePage implements OnDestroy {
       });
    }
 
+   ngOnInit(): void {
+      !this.products && this.store.dispatch(productActions.loadProducts());
+   }
+
+   ngOnDestroy(): void {
+      if (this.timer) {
+         clearTimeout(this.timer);
+      }
+   }
+
    public resetDisabled(): void {
       this.isDisabled.set(true);
       this.timer = setTimeout(() => {
@@ -70,16 +80,6 @@ class HomePage implements OnDestroy {
 
       // Reset form
       this.newProduct = { ...this.INITIAL_NEW_PRODUCT };
-   }
-
-   public handleDeleteProduct(id: number): void {
-      this.store.dispatch(productActions.deleteProduct({ id }));
-   }
-
-   ngOnDestroy(): void {
-      if (this.timer) {
-         clearTimeout(this.timer);
-      }
    }
 }
 

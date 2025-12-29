@@ -1,21 +1,25 @@
 import { Component, inject, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import { Store } from "@ngrx/store";
+import { NgClass } from "@angular/common";
 
 import ROUTE_CONFIGS from "../../routeConfigs";
-import { productActions } from "../../store";
+import { productActions, productSelectors } from "../../store";
 
 @Component({
    selector: "ProductDetailPage",
    standalone: true,
+   imports: [NgClass, RouterLink],
    templateUrl: "./ProductDetailPage.html",
    styleUrls: ["./ProductDetailPage.scss"],
 })
 class ProductDetailPage implements OnInit {
+   protected readonly ROUTE_CONFIGS = ROUTE_CONFIGS;
    private store = inject(Store);
+   private route = inject(ActivatedRoute);
 
-   route = inject(ActivatedRoute);
    productId = this.route.snapshot.params["productId"];
+   product = this.store.selectSignal(productSelectors.selectSelectedProduct);
 
    ngOnInit() {
       this.store.dispatch(productActions.selectProductById({ productId: Number(this.productId) }));

@@ -3,18 +3,14 @@
 
    <nav class="nav-group">
       <button
-         (click)="navigate(ROUTE_CONFIGS.HOME.fullPath)"
          routerLinkActive="active"
          [routerLinkActiveOptions]="{ exact: true }"
          [routerLink]="ROUTE_CONFIGS.HOME.fullPath"
+         replaceUrl="true"
       >
          {{ "header.home" | translate }}
       </button>
-      <button
-         (click)="navigate(ROUTE_CONFIGS.ABOUT.fullPath)"
-         routerLinkActive="active"
-         [routerLink]="ROUTE_CONFIGS.ABOUT.fullPath"
-      >
+      <button routerLinkActive="active" [routerLink]="ROUTE_CONFIGS.ABOUT.fullPath" replaceUrl="true">
          {{ "header.about" | translate }}
       </button>
       <button [ngClass]="{ active: isRouteActive(ROUTE_CONFIGS.PRODUCT_DETAIL.fullPath) }" class="cursor-default!">
