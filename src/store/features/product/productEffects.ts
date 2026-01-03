@@ -2,7 +2,7 @@ import { Injectable, inject } from "@angular/core";
 import { NavigationStart, Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { filter, map, mergeMap, catchError } from "rxjs/operators";
+import { filter, map, exhaustMap, catchError } from "rxjs/operators";
 
 import ROUTE_CONFIGS from "../../../routeConfigs";
 import { ProductService } from "../../../services";
@@ -24,10 +24,11 @@ class ProductEffects {
    );
 
    // Load products from service
+   // exhaustMap: ignore dispatch mới khi đang loading (tránh spam)
    loadProducts$ = createEffect(() =>
       this.actions$.pipe(
          ofType(ProductActions.loadProducts),
-         mergeMap(() =>
+         exhaustMap(() =>
             this.productService.getProducts().pipe(
                map((products) => ProductActions.loadProductsSuccess({ products })),
                catchError((error) => of(ProductActions.loadProductsFailure({ error: error.message }))),
