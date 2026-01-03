@@ -5,7 +5,7 @@ import { Store } from "@ngrx/store";
 
 import { testPipe_1, upperCasePipe } from "../../utils";
 import ROUTE_CONFIGS from "../../routeConfigs";
-import { productSelectors, productActions, type Product } from "../../store";
+import { productSelectors, productActions } from "../../store";
 import { ProductContainer } from "./components";
 
 @Component({
@@ -16,38 +16,40 @@ import { ProductContainer } from "./components";
    styleUrls: ["./HomePage.scss"],
 })
 class HomePage implements OnInit, OnDestroy {
-   protected readonly ROUTE_CONFIGS = ROUTE_CONFIGS;
    private store = inject(Store);
+
+   protected readonly ROUTE_CONFIGS = ROUTE_CONFIGS;
 
    public isDisabled = signal<boolean>(false);
    public timer: NodeJS.Timeout | null = null;
-
    // Two-way binding example
    public name = "";
 
-   // Get products from store
+   // Store selectors
    public products = this.store.selectSignal(productSelectors.selectAllProducts);
-
-   // Form fields for new product
-   private readonly INITIAL_NEW_PRODUCT = {
-      name: "",
-      description: "",
-      price: 0,
-      quantity: 0,
-      category: "",
-      brand: "",
-   };
-   public newProduct = { ...this.INITIAL_NEW_PRODUCT };
+   public loading = this.store.selectSignal(productSelectors.selectProductLoading);
+   public error = this.store.selectSignal(productSelectors.selectProductError);
 
    constructor() {
+      // Debug effect
       effect(() => {
          console.log("isDisabled", this.isDisabled());
          console.log("products", this.products());
       });
+
+      // Error handling effect
+      effect(() => {
+         const err = this.error();
+         if (err) {
+            console.error("[ProductError]:", err);
+            // Trong dự án thực: this.notificationService.showError(err);
+         }
+      });
    }
 
    ngOnInit(): void {
-      !this.products && this.store.dispatch(productActions.loadProducts());
+      // Load products khi component init
+      this.store.dispatch(productActions.loadProducts());
    }
 
    ngOnDestroy(): void {
@@ -63,23 +65,9 @@ class HomePage implements OnInit, OnDestroy {
       }, 1000);
    }
 
-   public handleAddProduct(): void {
-      const product: Product = {
-         id: Date.now(),
-         name: this.newProduct.name,
-         description: this.newProduct.description,
-         price: this.newProduct.price,
-         quantity: this.newProduct.quantity,
-         image: `https://picsum.photos/seed/${Date.now()}/400/300`,
-         category: this.newProduct.category,
-         brand: this.newProduct.brand,
-         isActive: true,
-      };
-
-      this.store.dispatch(productActions.addProduct({ product, propTest: "test hello" }));
-
-      // Reset form
-      this.newProduct = { ...this.INITIAL_NEW_PRODUCT };
+   public handleDeleteProduct(id: number): void {
+      console.log("handleDeleteProduct", id);
+      this.store.dispatch(productActions.deleteProduct({ id }));
    }
 }
 

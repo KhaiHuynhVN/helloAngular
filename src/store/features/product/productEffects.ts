@@ -5,13 +5,14 @@ import { of } from "rxjs";
 import { filter, map, mergeMap, catchError } from "rxjs/operators";
 
 import ROUTE_CONFIGS from "../../../routeConfigs";
+import { ProductService } from "../../../services";
 import * as ProductActions from "./productActions";
-import { initialProductState } from "./productState";
 
 @Injectable()
 class ProductEffects {
    private actions$ = inject(Actions);
    private router = inject(Router);
+   private productService = inject(ProductService);
 
    // Clear selected product when navigating away from product detail
    clearSelectedOnNavigate$ = createEffect(() =>
@@ -22,13 +23,12 @@ class ProductEffects {
       ),
    );
 
-   // Example effect - replace with actual service call
+   // Load products from service
    loadProducts$ = createEffect(() =>
       this.actions$.pipe(
          ofType(ProductActions.loadProducts),
          mergeMap(() =>
-            // TODO: Replace with actual API service
-            of([...initialProductState.products]).pipe(
+            this.productService.getProducts().pipe(
                map((products) => ProductActions.loadProductsSuccess({ products })),
                catchError((error) => of(ProductActions.loadProductsFailure({ error: error.message }))),
             ),

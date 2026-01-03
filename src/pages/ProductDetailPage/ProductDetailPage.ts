@@ -1,7 +1,6 @@
 import { Component, inject, OnInit } from "@angular/core";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { Store } from "@ngrx/store";
-import { NgClass } from "@angular/common";
 
 import ROUTE_CONFIGS from "../../routeConfigs";
 import { productActions, productSelectors } from "../../store";
@@ -9,7 +8,7 @@ import { productActions, productSelectors } from "../../store";
 @Component({
    selector: "ProductDetailPage",
    standalone: true,
-   imports: [NgClass, RouterLink],
+   imports: [RouterLink],
    templateUrl: "./ProductDetailPage.html",
    styleUrls: ["./ProductDetailPage.scss"],
 })
