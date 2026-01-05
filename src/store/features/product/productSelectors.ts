@@ -14,6 +14,10 @@ const selectProductError = createSelector(selectProductState, (state) => state.e
 
 const selectProductCount = createSelector(selectAllProducts, (products) => products.length);
 
+const selectCategories = createSelector(selectProductState, (state) => state.categories);
+
+const selectSelectedProductIdPath = createSelector(selectProductState, (state) => state.selectedProductIdPath);
+
 export {
    selectProductState,
    selectAllProducts,
@@ -21,4 +25,6 @@ export {
    selectProductLoading,
    selectProductError,
    selectProductCount,
+   selectCategories,
+   selectSelectedProductIdPath,
 };

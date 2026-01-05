@@ -22,7 +22,7 @@ class Header {
    protected ROUTE_CONFIGS = ROUTE_CONFIGS;
    protected router = inject(Router);
 
-   productSelected = this.store.selectSignal(productSelectors.selectSelectedProduct);
+   productIdPathSelected = this.store.selectSignal(productSelectors.selectSelectedProductIdPath);
 
    changeLang(event: Event) {
       const select = event.target as HTMLSelectElement;

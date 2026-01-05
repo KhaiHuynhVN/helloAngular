@@ -1,4 +1,4 @@
-import { createReducer, on } from "@ngrx/store";
+import { createReducer, on, State } from "@ngrx/store";
 
 import { initialProductState } from "./productState";
 import * as ProductActions from "./productActions";
@@ -25,10 +25,29 @@ const productReducer = createReducer(
       error,
    })),
 
-   // Select Product
-   on(ProductActions.selectProductById, (state, { productId }) => ({
+   // Load Product By Id
+   on(ProductActions.loadProductById, (state, { productId }) => ({
       ...state,
-      selectedProduct: state.products.find((product) => product.id === productId) ?? null,
+      loading: true,
+      error: null,
+   })),
+
+   on(ProductActions.loadProductByIdSuccess, (state, { product }) => ({
+      ...state,
+      selectedProduct: product,
+      loading: false,
+   })),
+
+   on(ProductActions.loadProductByIdFailure, (state, { error }) => ({
+      ...state,
+      loading: false,
+      error,
+   })),
+
+   // Select Product Id By Path
+   on(ProductActions.selectProductIdByPath, (state, { productId }) => ({
+      ...state,
+      selectedProductIdPath: productId,
    })),
 
    // Add Product
@@ -51,6 +70,25 @@ const productReducer = createReducer(
    on(ProductActions.deleteProduct, (state, { id }) => ({
       ...state,
       products: state.products.filter((p) => p.id !== id),
+   })),
+
+   // Load Categories
+   on(ProductActions.loadCategories, (state) => ({
+      ...state,
+      loading: true,
+      error: null,
+   })),
+
+   on(ProductActions.loadCategoriesSuccess, (state, { categories }) => ({
+      ...state,
+      loading: false,
+      categories,
+   })),
+
+   on(ProductActions.loadCategoriesFailure, (state, { error }) => ({
+      ...state,
+      loading: false,
+      error,
    })),
 );
 

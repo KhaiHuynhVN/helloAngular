@@ -19,7 +19,7 @@ class ProductEffects {
       this.router.events.pipe(
          filter((event): event is NavigationStart => event instanceof NavigationStart),
          filter((event) => !event.url.startsWith(ROUTE_CONFIGS.PRODUCT_DETAIL.fullPath)),
-         map(() => ProductActions.selectProductById({ productId: null })),
+         map(() => ProductActions.selectProductIdByPath({ productId: null })),
       ),
    );
 
@@ -32,6 +32,32 @@ class ProductEffects {
             this.productService.getProducts().pipe(
                map((products) => ProductActions.loadProductsSuccess({ products })),
                catchError((error) => of(ProductActions.loadProductsFailure({ error: error.message }))),
+            ),
+         ),
+      ),
+   );
+
+   // Load categories
+   loadCategories$ = createEffect(() =>
+      this.actions$.pipe(
+         ofType(ProductActions.loadCategories),
+         exhaustMap(() =>
+            this.productService.getCategories().pipe(
+               map((categories) => ProductActions.loadCategoriesSuccess({ categories })),
+               catchError((error) => of(ProductActions.loadCategoriesFailure({ error: error.message }))),
+            ),
+         ),
+      ),
+   );
+
+   // Load product by id
+   loadProductById$ = createEffect(() =>
+      this.actions$.pipe(
+         ofType(ProductActions.loadProductById),
+         exhaustMap((action) =>
+            this.productService.getProductById(action.productId).pipe(
+               map((product) => ProductActions.loadProductByIdSuccess({ product })),
+               catchError((error) => of(ProductActions.loadProductByIdFailure({ error: error.message }))),
             ),
          ),
       ),

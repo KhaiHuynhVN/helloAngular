@@ -15,6 +15,10 @@ const routes: Routes = [
             path: ROUTE_CONFIGS.PRODUCT_DETAIL.path,
             loadComponent: () => import("../pages/ProductDetailPage"),
          },
+         {
+            path: ROUTE_CONFIGS.CREATE_PRODUCT.path,
+            loadComponent: () => import("../pages/CreateProductPage"),
+         },
       ],
    },
    {

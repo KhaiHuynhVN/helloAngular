@@ -13,14 +13,18 @@ interface Product {
 
 interface ProductState {
    products: Product[];
+   categories: string[];
    selectedProduct: Product | null;
+   selectedProductIdPath: number | string | null;
    loading: boolean;
    error: string | null;
 }
 
 const initialProductState: ProductState = {
    products: [],
+   categories: [],
    selectedProduct: null,
+   selectedProductIdPath: null,
    loading: false,
    error: null,
 };

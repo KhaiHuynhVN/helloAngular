@@ -16,7 +16,8 @@
       "home": "Home",
       "about": "About",
       "contact": "Contact",
-      "product_detail": "Product Detail {{ productId }}"
+      "product_detail": "Product Detail {{ productId }}",
+      "create_product": "Create Product"
    },
    "translation": {
       "vietnam": "Vietnamese",

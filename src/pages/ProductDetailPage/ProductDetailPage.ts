@@ -25,7 +25,8 @@ class ProductDetailPage implements OnInit {
       // Reactive: auto update khi route params thay đổi
       this.route.params.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((params) => {
          const productId = Number(params["productId"]);
-         this.store.dispatch(productActions.selectProductById({ productId }));
+         this.store.dispatch(productActions.loadProductById({ productId }));
+         this.store.dispatch(productActions.selectProductIdByPath({ productId }));
       });
    }
 }

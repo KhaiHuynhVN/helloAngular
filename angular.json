@@ -59,7 +59,9 @@
             "serve": {
                "builder": "@angular/build:dev-server",
                "options": {
-                  "hmr": true
+                  "hmr": true,
+                  "poll": 1000,
+                  "liveReload": true
                },
                "configurations": {
                   "production": {

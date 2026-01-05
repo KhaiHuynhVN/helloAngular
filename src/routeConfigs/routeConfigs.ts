@@ -20,6 +20,11 @@ const ROUTE_CONFIGS = {
       fullPath: "/product-detail",
       title: "Product Detail",
    },
+   CREATE_PRODUCT: {
+      path: "create-product",
+      fullPath: "/create-product",
+      title: "Create Product",
+   },
    NOT_FOUND: {
       path: "**",
       fullPath: "/**",

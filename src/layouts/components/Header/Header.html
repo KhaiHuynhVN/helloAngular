@@ -14,7 +14,10 @@
          {{ "header.about" | translate }}
       </button>
       <button [ngClass]="{ active: isRouteActive(ROUTE_CONFIGS.PRODUCT_DETAIL.fullPath) }" class="cursor-default!">
-         {{ "header.product_detail" | translate : { productId: productSelected()?.id ?? "" } }}
+         {{ "header.product_detail" | translate : { productId: productIdPathSelected() ?? "" } }}
+      </button>
+      <button routerLinkActive="active" [routerLink]="ROUTE_CONFIGS.CREATE_PRODUCT.fullPath" replaceUrl="true">
+         {{ "header.create_product" | translate }}
       </button>
 
       <select (change)="changeLang($event)">

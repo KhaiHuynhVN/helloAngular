@@ -1,0 +1,113 @@
+<div class="create-product-page">
+   <div class="form-container">
+      <div class="form-header">
+         <h1>Create New Product</h1>
+         <p class="subtitle">Fill in the details below to add a new product</p>
+      </div>
+
+      @if (submitSuccess) {
+      <div class="success-message">
+         <span class="icon">✓</span>
+         <span>Product created successfully! Redirecting...</span>
+      </div>
+      } @if (submitError) {
+      <div class="error-message">
+         <span class="icon">✕</span>
+         <span>{{ submitError }}</span>
+      </div>
+      }
+
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+         <!-- Title -->
+         <div class="form-group">
+            <label [for]="FIELDS.TITLE">Product Title</label>
+            <input
+               type="text"
+               [id]="FIELDS.TITLE"
+               [formControlName]="FIELDS.TITLE"
+               placeholder="Enter product title"
+               [class.invalid]="isFieldInvalid(FIELDS.TITLE)"
+            />
+            @if (isFieldInvalid(FIELDS.TITLE)) {
+            <span class="field-error">{{ getFieldError(FIELDS.TITLE) }}</span>
+            }
+         </div>
+
+         <!-- Description -->
+         <div class="form-group">
+            <label [for]="FIELDS.DESCRIPTION">Description</label>
+            <textarea
+               [id]="FIELDS.DESCRIPTION"
+               [formControlName]="FIELDS.DESCRIPTION"
+               placeholder="Enter product description"
+               rows="4"
+               [class.invalid]="isFieldInvalid(FIELDS.DESCRIPTION)"
+            ></textarea>
+            @if (isFieldInvalid(FIELDS.DESCRIPTION)) {
+            <span class="field-error">{{ getFieldError(FIELDS.DESCRIPTION) }}</span>
+            }
+         </div>
+
+         <!-- Price & Category Row -->
+         <div class="form-row">
+            <div class="form-group">
+               <label [for]="FIELDS.PRICE">Price ($)</label>
+               <input
+                  type="number"
+                  [id]="FIELDS.PRICE"
+                  [formControlName]="FIELDS.PRICE"
+                  placeholder="0.00"
+                  step="0.01"
+                  min="0"
+                  [class.invalid]="isFieldInvalid(FIELDS.PRICE)"
+               />
+               @if (isFieldInvalid(FIELDS.PRICE)) {
+               <span class="field-error">{{ getFieldError(FIELDS.PRICE) }}</span>
+               }
+            </div>
+
+            <div class="form-group">
+               <label [for]="FIELDS.CATEGORY">Category</label>
+               <select
+                  [id]="FIELDS.CATEGORY"
+                  [formControlName]="FIELDS.CATEGORY"
+                  [class.invalid]="isFieldInvalid(FIELDS.CATEGORY)"
+               >
+                  <option value="">Select a category</option>
+                  @for (cat of categories(); track cat) {
+                  <option [value]="cat">{{ cat | titlecase }}</option>
+                  }
+               </select>
+               @if (isFieldInvalid(FIELDS.CATEGORY)) {
+               <span class="field-error">{{ getFieldError(FIELDS.CATEGORY) }}</span>
+               }
+            </div>
+         </div>
+
+         <!-- Image URL -->
+         <div class="form-group">
+            <label [for]="FIELDS.IMAGE">Image URL (optional)</label>
+            <input
+               type="url"
+               [id]="FIELDS.IMAGE"
+               [formControlName]="FIELDS.IMAGE"
+               placeholder="https://example.com/image.jpg"
+               [class.invalid]="isFieldInvalid(FIELDS.IMAGE)"
+            />
+            @if (isFieldInvalid(FIELDS.IMAGE)) {
+            <span class="field-error">{{ getFieldError(FIELDS.IMAGE) }}</span>
+            }
+         </div>
+
+         <!-- Submit Button -->
+         <button type="submit" class="submit-btn" [disabled]="isSubmitting">
+            @if (isSubmitting) {
+            <span class="spinner"></span>
+            <span>Creating...</span>
+            } @else {
+            <span>Create Product</span>
+            }
+         </button>
+      </form>
+   </div>
+</div>
