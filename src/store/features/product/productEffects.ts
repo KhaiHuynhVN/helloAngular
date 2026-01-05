@@ -2,7 +2,7 @@ import { Injectable, inject } from "@angular/core";
 import { NavigationStart, Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
-import { filter, map, exhaustMap, catchError } from "rxjs/operators";
+import { filter, map, exhaustMap, catchError, switchMap } from "rxjs/operators";
 
 import ROUTE_CONFIGS from "../../../routeConfigs";
 import { ProductService } from "../../../services";
@@ -54,7 +54,7 @@ class ProductEffects {
    loadProductById$ = createEffect(() =>
       this.actions$.pipe(
          ofType(ProductActions.loadProductById),
-         exhaustMap((action) =>
+         switchMap((action) =>
             this.productService.getProductById(action.productId).pipe(
                map((product) => ProductActions.loadProductByIdSuccess({ product })),
                catchError((error) => of(ProductActions.loadProductByIdFailure({ error: error.message }))),
